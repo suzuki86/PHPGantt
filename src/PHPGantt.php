@@ -7,12 +7,12 @@ class PHPGantt {
   public $startDate;
   public $endDate;
   public $contents;
-  public $dates = [];
+  public $dates = array();
   public $dateRange;
-  public $nonBusinessdays = [];
-  public $days = [
+  public $nonBusinessdays = array();
+  public $days = array(
     'Sun.', 'Mon.', 'Tue.', 'Wed.', 'Thu.', 'Fri.', 'Sat.'
-  ];
+  );
 
   public function __construct($tasks, $nonBusinessdays) {
     $this->nonBusinessdays = $nonBusinessdays;
@@ -138,7 +138,7 @@ class PHPGantt {
   }
 
   public function resolveDependency($tasks) {
-    $results = [];
+    $results = array();
     $counter = 0;
     foreach ($tasks as $task) {
       if(
@@ -182,7 +182,7 @@ class PHPGantt {
 
   public function extractDates($tasks) {
     if (!is_array($this->dates)) {
-      $this->dates = [];
+      $this->dates = array();
     }
     foreach ($tasks as $task) {
       $dateRange = new DateRange(

@@ -34,6 +34,7 @@ class PHPGantt {
     $html .= '<tr>' . PHP_EOL;
     $html .= '<td></td>';
     $html .= '<td></td>';
+    $html .= '<td></td>';
     foreach ($this->dates as $date) {
       $businessDayClass = ($this->isBusinessday($date)) ? ' businessday' : ' nonbusinessday';
       $html .= '<td class="' . $businessDayClass . '">' . date('m', $date) .'</td>' . PHP_EOL;
@@ -44,6 +45,7 @@ class PHPGantt {
     $html .= '<tr>' . PHP_EOL;
     $html .= '<td></td>';
     $html .= '<td></td>';
+    $html .= '<td></td>';
     foreach ($this->dates as $date) {
       $businessDayClass = ($this->isBusinessday($date)) ? ' businessday' : ' nonbusinessday';
       $html .= '<td class="' . $businessDayClass .'">' . date('d', $date) .'</td>' . PHP_EOL;
@@ -52,6 +54,7 @@ class PHPGantt {
 
     // Build row of days.
     $html .= '<tr>' . PHP_EOL;
+    $html .= '<td></td>';
     $html .= '<td></td>';
     $html .= '<td></td>';
     foreach ($this->dates as $date) {
@@ -75,6 +78,9 @@ class PHPGantt {
       $html .= '</td>';
       $html .= '<td class="task_name">';
       $html .= $task['name'];
+      $html .= '</td>';
+      $html .= '<td class="asignee">';
+      $html .= (isset($task['asignee'])) ? $task['asignee'] : '';
       $html .= '</td>';
       foreach ($this->dates as $date) {
         $businessDayClass = ($this->isBusinessday($date)) ? ' businessday' : ' nonbusinessday';

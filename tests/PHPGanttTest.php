@@ -8,12 +8,14 @@ class PHPGanttTest extends PHPUnit_Framework_TestCase {
       array(
         'project' => 'Project 1',
         'name' => 'hello world 2',
+        'asignee' => 'someone 1',
         'startDate' => strtotime('2015-10-05'),
         'workload' => 10
       ),
       array(
         'project' => 'Project 2',
         'name' => 'hello world 3',
+        'asignee' => 'someone 2',
         'dependency' => 'afterPrevious',
         'workload' => 10
       )
@@ -30,6 +32,7 @@ class PHPGanttTest extends PHPUnit_Framework_TestCase {
       array(
         'project' => 'Project 1',
         'name' => 'hello world 2',
+        'asignee' => 'someone 1',
         'startDate' => strtotime('2015-10-05'),
         'workload' => 10,
         'endDate' => strtotime('2015-10-19')
@@ -37,6 +40,7 @@ class PHPGanttTest extends PHPUnit_Framework_TestCase {
       array(
         'project' => 'Project 2',
         'name' => 'hello world 3',
+        'asignee' => 'someone 2',
         'dependency' => 'afterPrevious',
         'workload' => 10,
         'startDate' => strtotime('2015-10-20'),
@@ -54,18 +58,21 @@ class PHPGanttTest extends PHPUnit_Framework_TestCase {
       array(
         'project' => 'Project 1',
         'name' => 'hello world',
+        'asignee' => 'someone 1',
         'startDate' => strtotime('2015-10-01'),
         'workload' => 5
       ),
       array(
         'project' => 'Project 1',
         'name' => 'hello world 2',
+        'asignee' => 'someone 2',
         'startDate' => strtotime('2015-10-05'),
         'workload' => 10 
       ),
       array(
         'project' => 'Project 2',
         'name' => 'hello world 3',
+        'asignee' => 'someone 3',
         'dependency' => 'afterPrevious',
         'workload' => 10 
       )

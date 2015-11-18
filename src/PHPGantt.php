@@ -27,8 +27,8 @@ class PHPGantt {
     $this->tasks[] = $tasks;
   }
 
-  public function build() {
-    $html = '<table>' . PHP_EOL;
+  public function buildTableHeader() {
+    $html = '';
 
     // Build row of month.
     $html .= '<tr>' . PHP_EOL;
@@ -62,6 +62,12 @@ class PHPGantt {
       $html .= '<td class="' . $businessDayClass . '">' . $this->days[date('w', $date)] . '</td>' . PHP_EOL;
     }
     $html .= '</tr>';
+    return $html;
+  }
+
+  public function build() {
+    $html = '<table>';
+    $html .= $this->buildTableHeader();
 
     // Build row of gantt.
     foreach ($this->tasks as $task) {

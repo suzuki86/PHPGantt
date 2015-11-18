@@ -3,13 +3,45 @@
 require 'vendor/autoload.php';
 
 class PHPGantt {
+
+  /**
+   * Array of tasks.
+   */
   public $tasks;
+
+  /**
+   * First date of whole date range.
+   */
   public $startDate;
+
+  /**
+   * Last date of whole date range.
+   */
   public $endDate;
+
+  /**
+   * HTML to output.
+   */
   public $contents;
+
+  /**
+   * All dates of gantt chart.
+   */
   public $dates = array();
+
+  /**
+   * Date range of gantt chart.
+   */
   public $dateRange;
+
+  /**
+   * Non businessdays.
+   */
   public $nonBusinessdays = array();
+
+  /**
+   * String of each days.
+   */
   public $days = array(
     'Sun.', 'Mon.', 'Tue.', 'Wed.', 'Thu.', 'Fri.', 'Sat.'
   );

@@ -46,6 +46,11 @@ class PHPGantt {
     'Sun.', 'Mon.', 'Tue.', 'Wed.', 'Thu.', 'Fri.', 'Sat.'
   );
 
+  /**
+   * String to fill cells.
+   */
+  public $marker = '#';
+
   public function __construct($tasks, $nonBusinessdays) {
     $this->nonBusinessdays = $nonBusinessdays;
     $this->tasks = $this->resolveDependency($tasks);
@@ -123,7 +128,7 @@ class PHPGantt {
       foreach ($this->dates as $date) {
         $businessDayClass = ($this->isBusinessday($date)) ? ' businessday' : ' nonbusinessday';
         if (in_array($date, $taskDates)) {
-          $html .= '<td class="cell filled' . $businessDayClass . '">#</td>' . PHP_EOL;
+          $html .= '<td class="cell filled' . $businessDayClass . '">' . $this->marker . '</td>' . PHP_EOL;
         } else {
           $html .= '<td class="cell' . $businessDayClass . '"></td>' . PHP_EOL;
         }

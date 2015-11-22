@@ -73,8 +73,7 @@ class PHPGantt {
     $html .= '<td></td>';
     $html .= '<td></td>';
     foreach ($this->dates as $date) {
-      $businessDayClass = ($this->isBusinessday($date)) ? ' businessday' : ' nonbusinessday';
-      $html .= '<td class="' . $businessDayClass . '">' . date('m', $date) .'</td>' . PHP_EOL;
+      $html .= '<td class="' . $this->getBusinessDayClass($date) . '">' . date('m', $date) .'</td>' . PHP_EOL;
     }
     $html .= '</tr>';
 
@@ -84,8 +83,7 @@ class PHPGantt {
     $html .= '<td></td>';
     $html .= '<td></td>';
     foreach ($this->dates as $date) {
-      $businessDayClass = ($this->isBusinessday($date)) ? ' businessday' : ' nonbusinessday';
-      $html .= '<td class="' . $businessDayClass .'">' . date('d', $date) .'</td>' . PHP_EOL;
+      $html .= '<td class="' . $this->getBusinessDayClass($date) . '">' . date('d', $date) .'</td>' . PHP_EOL;
     }
     $html .= '</tr>';
 
@@ -95,8 +93,7 @@ class PHPGantt {
     $html .= '<td></td>';
     $html .= '<td></td>';
     foreach ($this->dates as $date) {
-      $businessDayClass = ($this->isBusinessday($date)) ? ' businessday' : ' nonbusinessday';
-      $html .= '<td class="' . $businessDayClass . '">' . $this->days[date('w', $date)] . '</td>' . PHP_EOL;
+      $html .= '<td class="' . $this->getBusinessDayClass($date) . '">' . $this->days[date('w', $date)] . '</td>' . PHP_EOL;
     }
     $html .= '</tr>';
     return $html;
@@ -148,6 +145,10 @@ class PHPGantt {
       return false;
     }
     return true;
+  }
+
+  public function getBusinessDayClass($date) {
+    return ($this->isBusinessday($date)) ? ' businessday' : ' nonbusinessday';
   }
 
   public function removeNonBusinessdays($dates) {

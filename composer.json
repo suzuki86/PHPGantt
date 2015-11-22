@@ -6,6 +6,6 @@
     }
   ],
   "require": {
-    "suzuki86/DateRange": "0.0.1"
+    "suzuki86/DateRange": "0.0.2"
   }
 }

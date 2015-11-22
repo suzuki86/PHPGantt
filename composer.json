@@ -6,6 +6,6 @@
     }
   ],
   "require": {
-    "suzuki86/DateRange": "dev-master"
+    "suzuki86/DateRange": "0.0.1"
   }
 }

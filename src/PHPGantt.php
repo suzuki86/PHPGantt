@@ -119,8 +119,8 @@ class PHPGantt {
       $html .= '<td class="task_name">';
       $html .= $task['name'];
       $html .= '</td>';
-      $html .= '<td class="asignee">';
-      $html .= (isset($task['asignee'])) ? $task['asignee'] : '';
+      $html .= '<td class="assignee">';
+      $html .= (isset($task['assignee'])) ? $task['assignee'] : '';
       $html .= '</td>';
       foreach ($this->dates as $date) {
         $businessDayClass = ($this->isBusinessday($date)) ? ' businessday' : ' nonbusinessday';

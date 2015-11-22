@@ -1,5 +1,8 @@
 <?php
 
+use DateRange\DateRange;
+
+require 'vendor/autoload.php';
 require 'src/PHPGantt.php';
 
 class PHPGanttTest extends PHPUnit_Framework_TestCase {

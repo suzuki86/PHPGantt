@@ -123,11 +123,10 @@ class PHPGantt {
       $html .= (isset($task['assignee'])) ? $task['assignee'] : '';
       $html .= '</td>';
       foreach ($this->dates as $date) {
-        $businessDayClass = ($this->isBusinessday($date)) ? ' businessday' : ' nonbusinessday';
         if (in_array($date, $taskDates)) {
-          $html .= '<td class="cell filled' . $businessDayClass . '">' . $this->marker . '</td>' . PHP_EOL;
+          $html .= '<td class="cell filled' . $this->getBusinessDayClass($date) . '">' . $this->marker . '</td>' . PHP_EOL;
         } else {
-          $html .= '<td class="cell' . $businessDayClass . '"></td>' . PHP_EOL;
+          $html .= '<td class="cell' . $this->getBusinessDayClass($date) . '"></td>' . PHP_EOL;
         }
       }
       $html .= '</tr>' . PHP_EOL;

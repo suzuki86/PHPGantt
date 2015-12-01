@@ -1,4 +1,9 @@
 {
+  "name": "suzuki86/phpgantt",
+  "description": "Gantt chart generator written in PHP",
+  "autoload": {
+    "psr-4": {"PhpGantt\\": "src/"}
+  },
   "repositories": [
     {
       "type": "git",

@@ -2,7 +2,7 @@
 
 use DateRange\DateRange;
 
-class PHPGantt {
+class PhpGantt {
 
   /**
    * Array of tasks.

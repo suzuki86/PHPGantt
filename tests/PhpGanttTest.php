@@ -3,9 +3,9 @@
 use DateRange\DateRange;
 
 require 'vendor/autoload.php';
-require 'src/PHPGantt.php';
+require 'src/PhpGantt.php';
 
-class PHPGanttTest extends PHPUnit_Framework_TestCase {
+class PhpGanttTest extends PHPUnit_Framework_TestCase {
   public function testResolveDependency() {
     $tasks = array(
       array(
@@ -29,7 +29,7 @@ class PHPGanttTest extends PHPUnit_Framework_TestCase {
       strtotime('2015-11-23'),
       strtotime('2015-11-24')
     );
-    $gantt = new PHPGantt($tasks, $nonBusinessdays);
+    $gantt = new PhpGantt($tasks, $nonBusinessdays);
     $actual = $gantt->resolveDependency($tasks);
     $expected = array(
       array(
@@ -86,7 +86,7 @@ class PHPGanttTest extends PHPUnit_Framework_TestCase {
       strtotime('2015-11-23'),
       strtotime('2015-11-24')
     );
-    $gantt = new PHPGantt($tasks, $nonBusinessdays);
+    $gantt = new PhpGantt($tasks, $nonBusinessdays);
     $dates = array(
       strtotime('2015-10-01'),
       strtotime('2015-10-02'),

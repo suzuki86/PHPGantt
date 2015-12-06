@@ -1,8 +1,8 @@
 <?php
 
-use DateRange\DateRange;
-
 namespace PhpGantt;
+
+use DateRange\DateRange;
 
 class PhpGantt {
 

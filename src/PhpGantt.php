@@ -2,6 +2,8 @@
 
 use DateRange\DateRange;
 
+namespace PhpGantt;
+
 class PhpGantt {
 
   /**

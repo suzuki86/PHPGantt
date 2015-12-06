@@ -1,9 +1,10 @@
 <?php
 
-use DateRange\DateRange;
-
 require 'vendor/autoload.php';
 require 'src/PhpGantt.php';
+
+use DateRange\DateRange;
+use PhpGantt\PhpGantt;
 
 class PhpGanttTest extends PHPUnit_Framework_TestCase {
   public function testResolveDependency() {

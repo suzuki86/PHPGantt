@@ -58,7 +58,7 @@ class PhpGantt {
    */
   public $filters = array();
 
-  public function __construct($tasks, $nonBusinessdays, $filters) {
+  public function __construct($tasks, $nonBusinessdays, $filters = array()) {
     $this->filters = $filters;
     $this->nonBusinessdays = $nonBusinessdays;
     $this->tasks = $this->resolveDependency($tasks);

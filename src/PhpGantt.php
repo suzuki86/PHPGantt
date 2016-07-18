@@ -62,6 +62,7 @@ class PhpGantt {
     $this->filters = $filters;
     $this->nonBusinessdays = $nonBusinessdays;
     $this->tasks = $this->resolveDependency($tasks);
+    $this->tasks = $this->filterTasks($this->tasks, $this->filters);
     $this->extractDates($this->tasks);
     $this->dateRange = new DateRange(min($this->dates), max($this->dates));
     $this->dates = $this->dateRange->extract();
@@ -113,18 +114,6 @@ class PhpGantt {
 
     // Build row of gantt.
     foreach ($this->tasks as $task) {
-      if (
-        (
-          isset($this->filters['project'])
-          && $task['project'] !== $this->filters['project']
-        ) || (
-          isset($this->filters['assignee'])
-          && $task['assignee'] !== $this->filters['assignee']
-        )
-      ) {
-        continue;
-      }
-
       $taskDateRange = new DateRange(
         $task['startDate'],
         strtotime('+ ' . ($task['workload'] - 1) . ' day', $task['startDate'])
@@ -158,6 +147,24 @@ class PhpGantt {
     }
     $html .= '</table>';
     return $html;
+  }
+
+  public function filterTasks($tasks, $filters) {
+    foreach($tasks as $task) {
+      if (
+          (
+            isset($filters['project'])
+            && $task['project'] !== $filters['project']
+          ) || (
+            isset($filters['assignee'])
+            && $task['assignee'] !== $filters['assignee']
+          )
+      ) {
+        continue;
+      }
+      $results[] = $task;
+    }
+    return $results;
   }
 
   public function isToday($date) {

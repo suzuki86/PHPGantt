@@ -71,31 +71,31 @@ class PhpGantt {
 
     // Build row of month.
     $html .= '<tr>' . PHP_EOL;
-    $html .= '<td></td>';
-    $html .= '<td></td>';
-    $html .= '<td></td>';
+    $html .= '<td class="project_name"></td>';
+    $html .= '<td class="task_name"></td>';
+    $html .= '<td class="assignee"></td>';
     foreach ($this->dates as $date) {
-      $html .= '<td class="' . $this->getBusinessDayClass($date) . '">' . date('m', $date) .'</td>' . PHP_EOL;
+      $html .= '<td class="cell_header' . $this->getBusinessDayClass($date) . '">' . date('m', $date) .'</td>' . PHP_EOL;
     }
     $html .= '</tr>';
 
     // Build row of dates.
     $html .= '<tr>' . PHP_EOL;
-    $html .= '<td></td>';
-    $html .= '<td></td>';
-    $html .= '<td></td>';
+    $html .= '<td class="project_name"></td>';
+    $html .= '<td class="task_name"></td>';
+    $html .= '<td class="assignee"></td>';
     foreach ($this->dates as $date) {
-      $html .= '<td class="' . $this->getBusinessDayClass($date) . '">' . date('d', $date) .'</td>' . PHP_EOL;
+      $html .= '<td class="cell_header' . $this->getBusinessDayClass($date) . '">' . date('d', $date) .'</td>' . PHP_EOL;
     }
     $html .= '</tr>';
 
     // Build row of days.
     $html .= '<tr>' . PHP_EOL;
-    $html .= '<td></td>';
-    $html .= '<td></td>';
-    $html .= '<td></td>';
+    $html .= '<td class="project_name"></td>';
+    $html .= '<td class="task_name"></td>';
+    $html .= '<td class="assignee"></td>';
     foreach ($this->dates as $date) {
-      $html .= '<td class="' . $this->getBusinessDayClass($date) . '">' . $this->days[date('w', $date)] . '</td>' . PHP_EOL;
+      $html .= '<td class="cell_header' . $this->getBusinessDayClass($date) . '">' . $this->days[date('w', $date)] . '</td>' . PHP_EOL;
     }
     $html .= '</tr>';
     return $html;

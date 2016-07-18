@@ -125,16 +125,28 @@ class PhpGantt {
       $html .= (isset($task['assignee'])) ? $task['assignee'] : '';
       $html .= '</td>';
       foreach ($this->dates as $date) {
+        if ($this->isToday($date)) {
+          $class_for_today = ' today';
+        } else{
+          $class_for_today = '';
+        }
         if (in_array($date, $taskDates)) {
-          $html .= '<td class="cell filled' . $this->getBusinessDayClass($date) . '">' . $this->marker . '</td>' . PHP_EOL;
+          $html .= '<td class="cell filled' . $this->getBusinessDayClass($date) . $class_for_today . '">' . $this->marker . '</td>' . PHP_EOL;
         } else {
-          $html .= '<td class="cell' . $this->getBusinessDayClass($date) . '"></td>' . PHP_EOL;
+          $html .= '<td class="cell' . $this->getBusinessDayClass($date) . $class_for_today . '"></td>' . PHP_EOL;
         }
       }
       $html .= '</tr>' . PHP_EOL;
     }
     $html .= '</table>';
     return $html;
+  }
+
+  public function isToday($date) {
+    if ($date !== strtotime(date('Y/m/d'))) {
+      return false;
+    }
+    return true;
   }
 
   public function isBusinessday($date) {

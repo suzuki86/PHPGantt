@@ -114,8 +114,13 @@ class PhpGantt {
     // Build row of gantt.
     foreach ($this->tasks as $task) {
       if (
-        isset($this->filters['project'])
-        && $task['project'] !== $this->filters['project']
+        (
+          isset($this->filters['project'])
+          && $task['project'] !== $this->filters['project']
+        ) || (
+          isset($this->filters['assignee'])
+          && $task['assignee'] !== $this->filters['assignee']
+        )
       ) {
         continue;
       }

@@ -53,7 +53,13 @@ class PhpGantt {
    */
   public $marker = '#';
 
-  public function __construct($tasks, $nonBusinessdays) {
+  /**
+   * Filter
+   */
+  public $filters = array();
+
+  public function __construct($tasks, $nonBusinessdays, $filters) {
+    $this->filters = $filters;
     $this->nonBusinessdays = $nonBusinessdays;
     $this->tasks = $this->resolveDependency($tasks);
     $this->extractDates($this->tasks);
@@ -107,6 +113,13 @@ class PhpGantt {
 
     // Build row of gantt.
     foreach ($this->tasks as $task) {
+      if (
+        isset($this->filters['project'])
+        && $task['project'] !== $this->filters['project']
+      ) {
+        continue;
+      }
+
       $taskDateRange = new DateRange(
         $task['startDate'],
         strtotime('+ ' . ($task['workload'] - 1) . ' day', $task['startDate'])

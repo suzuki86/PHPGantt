@@ -105,4 +105,48 @@ class PhpGanttTest extends PHPUnit_Framework_TestCase {
     );
     $this->assertSame($expected, $actual);
   }
+
+  public function testFilterTasks() {
+    $tasks = array(
+      array(
+        'project' => 'Project 1',
+        'name' => 'hello world',
+        'asignee' => 'someone 1',
+        'startDate' => strtotime('2015-10-01'),
+        'workload' => 5
+      ),
+      array(
+        'project' => 'Project 1',
+        'name' => 'hello world 2',
+        'asignee' => 'someone 2',
+        'startDate' => strtotime('2015-10-05'),
+        'workload' => 10
+      ),
+      array(
+        'project' => 'Project 2',
+        'name' => 'hello world 3',
+        'asignee' => 'someone 3',
+        'dependency' => 'afterPrevious',
+        'workload' => 10
+      )
+    );
+    $nonBusinessdays = array(
+      strtotime('2015-10-02'),
+    );
+    $filters = array(
+      'project' => 'Project 2'
+    );
+    $gantt = new PhpGantt($tasks, $nonBusinessdays);
+    $actual = $gantt->filterTasks($tasks, $filters);
+    $expected = array(
+      array(
+        'project' => 'Project 2',
+        'name' => 'hello world 3',
+        'asignee' => 'someone 3',
+        'dependency' => 'afterPrevious',
+        'workload' => 10
+      )
+    );
+    $this->assertSame($expected, $actual);
+  }
 }

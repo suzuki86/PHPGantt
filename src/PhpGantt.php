@@ -37,16 +37,9 @@ class PhpGantt {
   public $dateRange;
 
   /**
-   * Non businessdays.
+   * Instance of DateUtil.
    */
-  public $nonBusinessdays = array();
-
-  /**
-   * String of each days.
-   */
-  public $days = array(
-    'Sun.', 'Mon.', 'Tue.', 'Wed.', 'Thu.', 'Fri.', 'Sat.'
-  );
+  public $dateUtil;
 
   /**
    * String to fill cells.
@@ -61,6 +54,10 @@ class PhpGantt {
   public function __construct($tasks, $nonBusinessdays, $filters = array()) {
     $this->filters = $filters;
     $this->nonBusinessdays = $nonBusinessdays;
+
+    $this->dateUtil = new DateUtil($nonBusinessdays);
+    $this->htmlBuilder = new HtmlBuilder($this->dateUtil);
+
     $this->tasks = $this->resolveDependency($tasks);
     $this->tasks = $this->filterTasks($this->tasks, $this->filters);
     $this->extractDates($this->tasks);
@@ -73,44 +70,9 @@ class PhpGantt {
     $this->tasks[] = $tasks;
   }
 
-  public function buildTableHeader() {
-    $html = '';
-
-    // Build row of month.
-    $html .= '<tr>' . PHP_EOL;
-    $html .= '<td class="project_name"></td>';
-    $html .= '<td class="task_name"></td>';
-    $html .= '<td class="assignee"></td>';
-    foreach ($this->dates as $date) {
-      $html .= '<td class="cell_header' . $this->getBusinessDayClass($date) . '">' . date('m', $date) .'</td>' . PHP_EOL;
-    }
-    $html .= '</tr>';
-
-    // Build row of dates.
-    $html .= '<tr>' . PHP_EOL;
-    $html .= '<td class="project_name"></td>';
-    $html .= '<td class="task_name"></td>';
-    $html .= '<td class="assignee"></td>';
-    foreach ($this->dates as $date) {
-      $html .= '<td class="cell_header' . $this->getBusinessDayClass($date) . '">' . date('d', $date) .'</td>' . PHP_EOL;
-    }
-    $html .= '</tr>';
-
-    // Build row of days.
-    $html .= '<tr>' . PHP_EOL;
-    $html .= '<td class="project_name"></td>';
-    $html .= '<td class="task_name"></td>';
-    $html .= '<td class="assignee"></td>';
-    foreach ($this->dates as $date) {
-      $html .= '<td class="cell_header' . $this->getBusinessDayClass($date) . '">' . $this->days[date('w', $date)] . '</td>' . PHP_EOL;
-    }
-    $html .= '</tr>';
-    return $html;
-  }
-
   public function build() {
     $html = '<table>';
-    $html .= $this->buildTableHeader();
+    $html .= $this->htmlBuilder->buildTableHeader($this->dates);
 
     // Build row of gantt.
     foreach ($this->tasks as $task) {
@@ -138,9 +100,9 @@ class PhpGantt {
           $class_for_today = '';
         }
         if (in_array($date, $taskDates)) {
-          $html .= '<td class="cell filled' . $this->getBusinessDayClass($date) . $class_for_today . '">' . $this->marker . '</td>' . PHP_EOL;
+          $html .= '<td class="cell filled' . $this->htmlBuilder->getBusinessDayClass($date) . $class_for_today . '">' . $this->marker . '</td>' . PHP_EOL;
         } else {
-          $html .= '<td class="cell' . $this->getBusinessDayClass($date) . $class_for_today . '"></td>' . PHP_EOL;
+          $html .= '<td class="cell' . $this->htmlBuilder->getBusinessDayClass($date) . $class_for_today . '"></td>' . PHP_EOL;
         }
       }
       $html .= '</tr>' . PHP_EOL;
@@ -174,32 +136,17 @@ class PhpGantt {
     return true;
   }
 
-  public function isBusinessday($date) {
-    if (
-      in_array($date, $this->nonBusinessdays) ||
-      date('w', $date) === '0' ||
-      date('w', $date) === '6'
-    ) {
-      return false;
-    }
-    return true;
-  }
-
-  public function getBusinessDayClass($date) {
-    return ($this->isBusinessday($date)) ? ' businessday' : ' nonbusinessday';
-  }
-
   public function removeNonBusinessdays($dates) {
     $result = array();
 
     foreach ($dates as $date) {
-      if ($this->isBusinessday($date)) {
+      if ($this->dateUtil->isBusinessday($date)) {
         $result[] = $date;
       } else {
         $tmp = array_merge($result, $dates);
         $default = 1;
         while (
-          !$this->isBusinessday(strtotime('+ ' . $default . ' day', max($tmp)))
+          !$this->dateUtil->isBusinessday(strtotime('+ ' . $default . ' day', max($tmp)))
         ) {
           $default++;
         }

@@ -19,6 +19,13 @@ class DateUtil {
     $this->nonBusinessdays = $nonBusinessdays;
   }
 
+  public function isToday($date) {
+    if ($date !== strtotime(date('Y/m/d'))) {
+      return false;
+    }
+    return true;
+  }
+
   public function isBusinessday($date) {
     if (
       in_array($date, $this->nonBusinessdays) ||
@@ -28,5 +35,27 @@ class DateUtil {
       return false;
     }
     return true;
+  }
+
+  public function removeNonBusinessdays($dates) {
+    $result = array();
+
+    foreach ($dates as $date) {
+      if ($this->isBusinessday($date)) {
+        $result[] = $date;
+      } else {
+        $tmp = array_merge($result, $dates);
+        $default = 1;
+        while (
+          !$this->isBusinessday(strtotime('+ ' . $default . ' day', max($tmp)))
+        ) {
+          $default++;
+        }
+        $result[] = strtotime('+ ' . $default . ' day', max($tmp));
+        $default = 1;
+      }
+    }
+    sort($result);
+    return $result;
   }
 }

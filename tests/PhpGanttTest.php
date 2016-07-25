@@ -95,7 +95,7 @@ class PhpGanttTest extends PHPUnit_Framework_TestCase {
       strtotime('2015-10-04'),
       strtotime('2015-10-05')
     );
-    $actual = $gantt->removeNonBusinessdays($dates);
+    $actual = $gantt->dateUtil->removeNonBusinessdays($dates);
     $expected = array(
       strtotime('2015-10-01'),
       strtotime('2015-10-05'),

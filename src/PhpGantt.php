@@ -42,11 +42,6 @@ class PhpGantt {
   public $dateUtil;
 
   /**
-   * String to fill cells.
-   */
-  public $marker = '#';
-
-  /**
    * Filter
    */
   public $filters = array();
@@ -63,52 +58,11 @@ class PhpGantt {
     $this->extractDates($this->tasks);
     $this->dateRange = new DateRange(min($this->dates), max($this->dates));
     $this->dates = $this->dateRange->extract();
-    $this->contents = $this->build();
+    $this->contents = $this->htmlBuilder->build($this->dates, $this->tasks);
   }
 
   public function addTasks($tasks) {
     $this->tasks[] = $tasks;
-  }
-
-  public function build() {
-    $html = '<table>';
-    $html .= $this->htmlBuilder->buildTableHeader($this->dates);
-
-    // Build row of gantt.
-    foreach ($this->tasks as $task) {
-      $taskDateRange = new DateRange(
-        $task['startDate'],
-        strtotime('+ ' . ($task['workload'] - 1) . ' day', $task['startDate'])
-      );
-
-      $taskDates = $this->removeNonBusinessdays($taskDateRange->extract());
-
-      $html .= '<tr>' . PHP_EOL;
-      $html .= '<td class="project_name">';
-      $html .= $task['project'];
-      $html .= '</td>';
-      $html .= '<td class="task_name">';
-      $html .= $task['name'];
-      $html .= '</td>';
-      $html .= '<td class="assignee">';
-      $html .= (isset($task['assignee'])) ? $task['assignee'] : '';
-      $html .= '</td>';
-      foreach ($this->dates as $date) {
-        if ($this->isToday($date)) {
-          $class_for_today = ' today';
-        } else{
-          $class_for_today = '';
-        }
-        if (in_array($date, $taskDates)) {
-          $html .= '<td class="cell filled' . $this->htmlBuilder->getBusinessDayClass($date) . $class_for_today . '">' . $this->marker . '</td>' . PHP_EOL;
-        } else {
-          $html .= '<td class="cell' . $this->htmlBuilder->getBusinessDayClass($date) . $class_for_today . '"></td>' . PHP_EOL;
-        }
-      }
-      $html .= '</tr>' . PHP_EOL;
-    }
-    $html .= '</table>';
-    return $html;
   }
 
   public function filterTasks($tasks, $filters) {
@@ -127,35 +81,6 @@ class PhpGantt {
       $results[] = $task;
     }
     return $results;
-  }
-
-  public function isToday($date) {
-    if ($date !== strtotime(date('Y/m/d'))) {
-      return false;
-    }
-    return true;
-  }
-
-  public function removeNonBusinessdays($dates) {
-    $result = array();
-
-    foreach ($dates as $date) {
-      if ($this->dateUtil->isBusinessday($date)) {
-        $result[] = $date;
-      } else {
-        $tmp = array_merge($result, $dates);
-        $default = 1;
-        while (
-          !$this->dateUtil->isBusinessday(strtotime('+ ' . $default . ' day', max($tmp)))
-        ) {
-          $default++;
-        }
-        $result[] = strtotime('+ ' . $default . ' day', max($tmp));
-        $default = 1;
-      }
-    }
-    sort($result);
-    return $result;
   }
 
   public function hasDuplicate($array1, $array2) {
@@ -191,7 +116,7 @@ class PhpGantt {
             $task['startDate']
           )
         );
-        $businessDays = $this->removeNonBusinessdays(
+        $businessDays = $this->dateUtil->removeNonBusinessdays(
           $dateRange->extract()
         );
         $task['endDate'] = max($businessDays);
@@ -204,7 +129,7 @@ class PhpGantt {
             $task['startDate']
           )
         );
-        $businessDays = $this->removeNonBusinessdays(
+        $businessDays = $this->dateUtil->removeNonBusinessdays(
           $dateRange->extract()
         );
         $task['endDate'] = max($businessDays);
@@ -228,7 +153,7 @@ class PhpGantt {
         )
       );
 
-      $businessDays = $this->removeNonBusinessdays(
+      $businessDays = $this->dateUtil->removeNonBusinessdays(
         $dateRange->extract()
       );
 

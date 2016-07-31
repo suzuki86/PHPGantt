@@ -13,7 +13,7 @@ class HtmlBuilderTest extends PHPUnit_Framework_TestCase {
     $nonBusinessdays = array(
       strtotime('2016-07-04'),
     );
-    $dateUtil = new DateUtil($nonBusinessdays);
+    $dateUtil = new DateUtil($nonBusinessdays, array(0, 6));
     $htmlBuilder = new HtmlBuilder($dateUtil);
 
     $dates = array(

@@ -46,11 +46,11 @@ class PhpGantt {
    */
   public $filters = array();
 
-  public function __construct($tasks, $nonBusinessdays, $filters = array()) {
+  public function __construct($tasks, $nonBusinessdays, $filters = array(), $dayOff = array(0, 6)) {
     $this->filters = $filters;
     $this->nonBusinessdays = $nonBusinessdays;
 
-    $this->dateUtil = new DateUtil($nonBusinessdays);
+    $this->dateUtil = new DateUtil($nonBusinessdays, $dayOff);
     $this->htmlBuilder = new HtmlBuilder($this->dateUtil);
 
     $this->tasks = $this->resolveDependency($tasks);

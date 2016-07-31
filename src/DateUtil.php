@@ -15,8 +15,9 @@ class DateUtil {
     'Sun.', 'Mon.', 'Tue.', 'Wed.', 'Thu.', 'Fri.', 'Sat.'
   );
 
-  public function __construct($nonBusinessdays) {
+  public function __construct($nonBusinessdays, $dayOff) {
     $this->nonBusinessdays = $nonBusinessdays;
+    $this->dayOff = $dayOff;
   }
 
   public function isToday($date) {
@@ -29,8 +30,7 @@ class DateUtil {
   public function isBusinessday($date) {
     if (
       in_array($date, $this->nonBusinessdays) ||
-      date('w', $date) === '0' ||
-      date('w', $date) === '6'
+      in_array((int)date('w', $date), $this->dayOff)
     ) {
       return false;
     }

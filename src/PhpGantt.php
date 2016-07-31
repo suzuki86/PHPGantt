@@ -3,6 +3,10 @@
 namespace PhpGantt;
 
 use DateRange\DateRange;
+use PhpGantt\DateUtil;
+use PhpGantt\HtmlBuilder;
+use PhpGantt\CssRenderer;
+use PhpGantt\JsRenderer;
 
 class PhpGantt {
 
@@ -59,6 +63,9 @@ class PhpGantt {
     $this->dateRange = new DateRange(min($this->dates), max($this->dates));
     $this->dates = $this->dateRange->extract();
     $this->contents = $this->htmlBuilder->build($this->dates, $this->tasks);
+
+    $this->cssRenderer = new CssRenderer();
+    $this->jsRenderer = new JsRenderer();
   }
 
   public function addTasks($tasks) {

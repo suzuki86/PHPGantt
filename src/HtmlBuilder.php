@@ -21,9 +21,9 @@ class HtmlBuilder {
 
     // Build row of month.
     $html .= '<tr>' . PHP_EOL;
-    $html .= '<td class="project_name"></td>';
-    $html .= '<td class="task_name"></td>';
-    $html .= '<td class="assignee"></td>';
+    $html .= '<td class="project_name padding"></td>';
+    $html .= '<td class="task_name padding"></td>';
+    $html .= '<td class="assignee padding"></td>';
     foreach ($dates as $date) {
       $html .= '<td class="cell_header' . $this->getBusinessDayClass($date) . '">' . date('m', $date) .'</td>' . PHP_EOL;
     }
@@ -31,9 +31,9 @@ class HtmlBuilder {
 
     // Build row of dates.
     $html .= '<tr>' . PHP_EOL;
-    $html .= '<td class="project_name"></td>';
-    $html .= '<td class="task_name"></td>';
-    $html .= '<td class="assignee"></td>';
+    $html .= '<td class="project_name padding"></td>';
+    $html .= '<td class="task_name padding"></td>';
+    $html .= '<td class="assignee padding"></td>';
     foreach ($dates as $date) {
       $html .= '<td class="cell_header' . $this->getBusinessDayClass($date) . '">' . date('d', $date) .'</td>' . PHP_EOL;
     }
@@ -41,9 +41,9 @@ class HtmlBuilder {
 
     // Build row of days.
     $html .= '<tr>' . PHP_EOL;
-    $html .= '<td class="project_name"></td>';
-    $html .= '<td class="task_name"></td>';
-    $html .= '<td class="assignee"></td>';
+    $html .= '<td class="project_name padding"></td>';
+    $html .= '<td class="task_name padding"></td>';
+    $html .= '<td class="assignee padding"></td>';
     foreach ($dates as $date) {
       $html .= '<td class="cell_header' . $this->getBusinessDayClass($date) . '">' . $this->dateUtil->days[date('w', $date)] . '</td>' . PHP_EOL;
     }
@@ -52,7 +52,10 @@ class HtmlBuilder {
   }
 
   public function build($dates, $tasks) {
-    $html = '<table>';
+    $html = '<div class="phpgantt">';
+    $html .= '<div class="phpgantt_container">';
+    $html .= '<div class="phpgantt_table_wrapper">';
+    $html .= '<table>';
     $html .= $this->buildTableHeader($dates);
 
     // Build row of gantt.
@@ -89,6 +92,9 @@ class HtmlBuilder {
       $html .= '</tr>' . PHP_EOL;
     }
     $html .= '</table>';
+    $html .= '</div>';
+    $html .= '</div>';
+    $html .= '</div>';
     return $html;
   }
 

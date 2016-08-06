@@ -7,7 +7,7 @@ class JsRenderer {
     $js = <<<JS
 <script>
 $(function(){
-  $('.phpgantt .phpgantt_container .phpgantt_table_wrapper').each(function(){
+  $('.phpgantt .table_body').each(function(){
     var cellCount = $(this).find('tr:first>td').length - 3;
     var wrapperWidth = 45 * cellCount;
     $(this).css({ width: wrapperWidth});

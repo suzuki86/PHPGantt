@@ -12,6 +12,11 @@ $(function(){
     var wrapperWidth = 45 * cellCount;
     $(this).css({ width: wrapperWidth});
   });
+  $('.phpgantt .table_header tr').each(function(){
+    var rowHeight = $(this).height();
+    var rowNumber = $(this).index();
+    $('.phpgantt .table_body tr').eq(rowNumber).css({ height: rowHeight});
+  });
 });
 </script>
 JS;

@@ -110,7 +110,7 @@ class HtmlBuilder {
   }
 
   public function build($dates, $tasks) {
-    $html .= '';
+    $html = '';
 
     $html .= '<div class="phpgantt">';
     $html .= '<div class="phpgantt_container">';

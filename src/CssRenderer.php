@@ -8,12 +8,25 @@ class CssRenderer {
 <style>
 .phpgantt {
   width: 100%;
-  position: relative;
 }
 
 .phpgantt .phpgantt_container {
+}
+
+.phpgantt_table_wrapper {
+  position: relative;
+}
+
+.phpgantt .table_header {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 450px;
+}
+
+.phpgantt .table_body_wrapper {
   overflow-x: scroll;
-  margin: 0 0 0 465px;
+  margin: 0 0 0 450px;
 }
 
 .phpgantt table {
@@ -37,27 +50,18 @@ class CssRenderer {
 
 .phpgantt .project_name {
   width: 150px;
-  position: absolute;
-  top: auto;
-  left: 0;
 }
 
 .phpgantt .padding {
-  height: 12px;
+  height: 19px;
 }
 
 .phpgantt .task_name {
   width: 150px;
-  position: absolute;
-  top: auto;
-  left: 155px;
 }
 
 .phpgantt .assignee {
   width: 150px;
-  position: absolute;
-  top: auto;
-  left: 310px;
 }
 
 .phpgantt .nonbusinessday {

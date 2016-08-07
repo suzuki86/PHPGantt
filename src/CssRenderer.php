@@ -21,12 +21,12 @@ class CssRenderer {
   position: absolute;
   top: 0;
   left: 0;
-  width: 450px;
+  width: 390px;
 }
 
 .phpgantt .table_body_wrapper {
   overflow-x: scroll;
-  margin: 0 0 0 450px;
+  margin: 0 0 0 390px;
 }
 
 .phpgantt table {
@@ -35,7 +35,7 @@ class CssRenderer {
 
 .phpgantt td {
   font-size: 12px;
-  padding: 3px 2px;
+  padding: 4px 2px;
   border: 1px solid #cccccc;
 }
 
@@ -49,7 +49,7 @@ class CssRenderer {
 }
 
 .phpgantt .project_name {
-  width: 150px;
+  width: 130px;
 }
 
 .phpgantt .padding {
@@ -57,11 +57,11 @@ class CssRenderer {
 }
 
 .phpgantt .task_name {
-  width: 150px;
+  width: 130px;
 }
 
 .phpgantt .assignee {
-  width: 150px;
+  width: 130px;
 }
 
 .phpgantt .nonbusinessday {

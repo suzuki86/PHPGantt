@@ -56,7 +56,7 @@ class HtmlBuilder {
     return $html;
   }
 
-  public function buildTableBody ($dates, $tasks) {
+  public function buildTableBody($dates, $tasks) {
     $html = '';
     $html .= '<div class="table_body_wrapper">';
     $html .= '<table class="table_body">' . PHP_EOL;
